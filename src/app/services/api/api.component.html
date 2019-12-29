@@ -1,0 +1,8 @@
+<h3>Get configuration from JSON file</h3>
+<div>
+  <button (click)="showApiData()">get</button>
+  <span *ngIf="api">
+    <p>id "{{flightDetails.quoteId}}"</p>
+    <p>minPrice "{{flightDetails.minPrice}}"</p>
+  </span>
+</div>
