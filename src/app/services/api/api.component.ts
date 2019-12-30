@@ -11,43 +11,24 @@ import { Flight } from '../../models/flight.model';
 
 // Controller
 export class ApiComponent {
-  api=true
-  flightDetails: Flight;
+	flight: Flight;
   //  apiService singleton
   constructor(private apiService: ApiService) {}
 
-  // showApiData() {
-  //   console.log("hello");
-  //   this.apiService.getDBdata()
-  //     .subscribe((data: Api) => this.api = {
-  //       sigal: data['sigal'],
-  //     });
-  //   }
-  showApiData() {
-    console.log("hello");
-    // data manipulation in service
-    this.apiService.getDBdata()
+  showData() {
+    this.apiService.getData()
       .subscribe(
-        (data: Flight) => this.flightDetails = {
-        ...data
+        res => {
+          console.log(res)
+          this.flight = res;
+          console.log(this.flight.Quotes)
         }
-
-        // data => this.flightDetails = {
+        // data => this.flight = {
         //   quoteId:  (data as any).quoteId,
         //   minPrice:  (data as any).minPrice,
         //   direct:  (data as any).direct,
         //   updated:  (data as any).updated
         // }
-        // data => {
-        //   console.log(data)
-        // }
-        // (data: Flight) => this.flightDetails = {
-        // ...data
-        // }
       );
-      // .subscribe(data => {
-      //   this.results = data;
-      //   console.log(data);
-      // })
     }
   }
