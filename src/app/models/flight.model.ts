@@ -1,20 +1,16 @@
-export interface Flight {
-  quoteId: number,
-  minPrice: number,
-  direct: boolean,
-  updated: string
+export interface Quotes {
+  quoteId: number;
+  minPrice: number;
+  direct: boolean;
+  outboundLeg: OutboundLeg[];
 }
 
-// export class FlightModel implements Flight {
-//   quoteId: number;
-//   minPrice: number;
-//   direct: boolean;
-//   updated: string;
-//
-//   constructor (flightModelSingleton: FlightModel) {
-//     this.quoteId = flightModelSingleton.quoteId;
-//     this.minPrice = flightModelSingleton.minPrice;
-//     this.direct = flightModelSingleton.direct;
-//     this.updated = flightModelSingleton.updated;
-//   }
-// }
+export interface OutboundLeg {
+  carrierIds: CarrierIds[];
+  originId: number;
+  departureDate: string;
+}
+
+export interface CarrierIds {
+  carrierIds: number;
+}
