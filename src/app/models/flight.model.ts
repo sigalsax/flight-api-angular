@@ -1,8 +1,21 @@
+// export default class Quotes {
+//   quoteId: number;
+//   minPrice: number;
+//   direct: boolean;
+//   // outboundLeg: OutboundLeg[];
+//
+//
+// constructor(quoteId: number, minPrice: number, direct: boolean){
+//     this.quoteId = quoteId;
+//     this.minPrice = minPrice;
+//     this.direct = direct;
+//   }
+// }
 export interface Quotes {
-  quoteId: number;
-  minPrice: number;
-  direct: boolean;
-  outboundLeg: OutboundLeg[];
+  QuoteId: number;
+  MinPrice: number;
+  Direct: boolean;
+  OutboundLeg: OutboundLeg[];
 }
 
 export interface OutboundLeg {

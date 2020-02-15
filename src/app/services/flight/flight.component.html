@@ -1,8 +1,9 @@
 <h3>Get configuration from JSON file</h3>
 <div>
-  <button (click)="showData()">get</button>
-  <div *ngIf="flight">
-    <p>id "{{idToCarr}}"</p>
-    <p>minPrice "{{price}}"</p>
+  <button (click)="getQuotes()">get</button>
+  <div *ngFor="let quote of quotes">
+    {{ this.price }}
+    {{ this.isDirect }}
+    {{ this.idToCarr }}
   </div>
 </div>

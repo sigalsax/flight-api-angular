@@ -1,0 +1,58 @@
+{
+   "Quotes":[
+      {
+         "QuoteId":1,
+         "MinPrice":167,
+         "Direct":true,
+         "OutboundLeg":{
+            "CarrierIds":[
+               870
+            ],
+            "OriginId":81727,
+            "DestinationId":60987,
+            "DepartureDate":"2020-05-20T00:00:00"
+         },
+         "QuoteDateTime":"2020-02-15T02:50:00"
+      }
+   ],
+   "Places":[
+      {
+         "PlaceId":60987,
+         "IataCode":"JFK",
+         "Name":"New York John F. Kennedy",
+         "Type":"Station",
+         "SkyscannerCode":"JFK",
+         "CityName":"New York",
+         "CityId":"NYCA",
+         "CountryName":"United States"
+      },
+      {
+         "PlaceId":81727,
+         "IataCode":"SFO",
+         "Name":"San Francisco International",
+         "Type":"Station",
+         "SkyscannerCode":"SFO",
+         "CityName":"San Francisco",
+         "CityId":"SFOA",
+         "CountryName":"United States"
+      }
+   ],
+   "Carriers":[
+      {
+         "CarrierId":851,
+         "Name":"Alaska Airlines"
+      },
+      {
+         "CarrierId":870,
+         "Name":"jetBlue"
+      },
+      {
+         "CarrierId":881,
+         "Name":"British Airways"
+      },
+      {
+         "CarrierId":1361,
+         "Name":"LATAM Airlines Group"
+      }
+   ]
+}
