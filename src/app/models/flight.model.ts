@@ -1,29 +1,36 @@
-// export default class Quotes {
-//   quoteId: number;
-//   minPrice: number;
-//   direct: boolean;
-//   // outboundLeg: OutboundLeg[];
-//
-//
-// constructor(quoteId: number, minPrice: number, direct: boolean){
-//     this.quoteId = quoteId;
-//     this.minPrice = minPrice;
-//     this.direct = direct;
-//   }
-// }
-export interface Quotes {
+export interface Flight {
+  Quotes: Array<Quote>;
+  Places: Array<Place>;
+  Carriers: Array<Carrier>;
+  QuoteDateTime: string;
+}
+
+export interface Quote {
   QuoteId: number;
   MinPrice: number;
   Direct: boolean;
-  OutboundLeg: OutboundLeg[];
+  OutboundLeg: Array<OutboundLeg>;
 }
 
 export interface OutboundLeg {
-  carrierIds: CarrierIds[];
-  originId: number;
-  departureDate: string;
+  CarrierIds: Array<number>;
+  OriginId: number;
+  DestinationId: number;
+  DepartureDate: string;
 }
 
-export interface CarrierIds {
-  carrierIds: number;
+export interface Place {
+  PlaceId: number;
+  IataCode: string;
+  Name: string;
+  Type: string;
+  SkyscannerCode: string;
+  CityName: string;
+  CityId: string;
+  CountryName: string;
+}
+
+export class Carrier {
+  CarrierId: number;
+  Name: string;
 }
