@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 
 import { FlightComponent } from './services/flight/flight.component';
 
+import { FormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,6 +19,7 @@ import { FlightComponent } from './services/flight/flight.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

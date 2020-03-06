@@ -1,27 +1,31 @@
 # FlightAPI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
+This project evokes the SkyScanner Flight API (with the help of RapidAPI wrapper to check the lowest price available for travel between two locations for a specific date.
 
-## Development server
+## Milestones
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- [ ] Use LucidChart to create a System Sequence Diagram
 
-## Code scaffolding
+- [x] Create basic backend that has initial hardcoded values, but receives correct data using the [Skyscanner API](https://rapidapi.com/skyscanner/api/skyscanner-flight-search)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+  - [x] Add capability to receive, consolidate, format, and package data before sending response
 
-## Build
+- [x] Add a front end and add functionality to accept user input to build the Flight query
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- [ ] Add Reactive Forms for data validation and [Moment](https://momentjs.com/) for data formatting
 
-## Running unit tests
+- [ ] Improve UX by adding CSS to Flight component
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Open bugs to fix:
 
-## Running end-to-end tests
+- [ ] Multiple query data should be returned, not just first
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+- [ ] Add mention of required input format (chart for airport acronyms and airport names)
 
-## Further help
+## Areas to explore
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- [ ] Reactive forms for data validation
+
+- [ ] Moment for proper Date formatting and look into month time table pop up
+
+- [ ] Angular elements for styling

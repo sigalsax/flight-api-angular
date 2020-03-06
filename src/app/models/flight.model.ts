@@ -1,3 +1,9 @@
+export interface FlightModeledObject {
+  price: string;
+  isDirect: string;
+  carrier: string;
+}
+
 export interface Flight {
   Quotes: Array<Quote>;
   Places: Array<Place>;

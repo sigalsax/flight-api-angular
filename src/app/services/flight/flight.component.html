@@ -1,9 +1,18 @@
-<h3>Get configuration from JSON file</h3>
-<div>
-  <button (click)="getQuotes()">get</button>
-  <div *ngIf="flightObject">
-    {{ flightObject.price }}
-    {{ flightObject.isDirect }}
-    {{ flightObject.carrier }}
-  </div>
+<h3>Get Flight Data</h3>
+
+<label>Origin:</label>
+<input type="text" [(ngModel)]="origin">
+
+<label>Destination:</label>
+<input type="text" [(ngModel)]="destination">
+
+<label>Departure:</label>
+<input type="text" [(ngModel)]="departureDate">
+
+<button (click)="getFlights()">Submit</button>
+
+<div *ngIf="flightObject">
+  {{ flightObject.price }}
+  {{ flightObject.isDirect }}
+  {{ flightObject.carrier }}
 </div>
