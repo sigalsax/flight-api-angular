@@ -2,9 +2,15 @@
 
 This project evokes the SkyScanner Flight API (with the help of RapidAPI wrapper to check the lowest price available for travel between two locations for a specific date.
 
+## Design
+
+The following defines the sequence diagram for this project.   
+
+<img src="./design/flightAPIActivity.png" width="350">
+
 ## Milestones
 
-- [ ] Use LucidChart to create a System Sequence Diagram
+- [x] Use LucidChart to create a Activity Diagram
 
 - [x] Create basic backend that has initial hardcoded values, but receives correct data using the [Skyscanner API](https://rapidapi.com/skyscanner/api/skyscanner-flight-search)
 
