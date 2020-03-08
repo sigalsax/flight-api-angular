@@ -18,20 +18,28 @@ The following defines the sequence diagram for this project.
 
 - [x] Add a front end and add functionality to accept user input to build the Flight query
 
-- [ ] Add Reactive Forms for data validation and [Moment](https://momentjs.com/) for data formatting
+- [x] Add Reactive Forms for data validation
+
+- [ ] Front-end design created in Adobe Photoshop of SOAP layout
+
+  - [ ] Design should include a table of required input format (chart for airport acronyms and airport names). Ex: MIA -> Miami
 
 - [ ] Improve UX by adding CSS to Flight component
 
+- [ ] Add security measures on input and in code to prevent against malicious code execution
+
 ## Open bugs to fix:
 
-- [ ] Multiple query data should be returned, not just first
+- [x] Multiple query data should be returned, not just last
 
-- [ ] Add mention of required input format (chart for airport acronyms and airport names)
+- [x] Check if Quotes array is empty and if so, render message to View
+
+- [ ] Fix toggling bug when empty query/query with results, the messages disappear accordingly
 
 ## Areas to explore
 
 - [ ] Reactive forms for data validation
 
-- [ ] Moment for proper Date formatting and look into month time table pop up
+- [ ] Look into Angular Elements for Date Picker
 
 - [ ] Angular elements for styling

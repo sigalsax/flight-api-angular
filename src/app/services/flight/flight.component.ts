@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FlightService } from './flight.service';
-import { Flight, FlightModeledObject } from '../../models/flight.model';
-import { tap, map } from 'rxjs/operators';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FlightModeledObject } from '../../models/flight.model';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-flight',
@@ -13,18 +12,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 
 export class FlightComponent {
-  origin: string;
-  destination: string;
-  departureDate: string;
+  flightObjects: FlightModeledObject
 
-  flightObject: FlightModeledObject
+  flightForm = new FormGroup({
+    origin: new FormControl('MIA'),
+    destination: new FormControl('JFK'),
+    departureDate: new FormControl('2020-04-01'),
+  });
 
-  // flightService singleton
-  constructor(private flightService: FlightService) {}
+  constructor(private flightService: FlightService) {
+  }
 
-  getFlights(origin, departureDate) {
-    this.flightService.getData(this.origin, this.destination, this.departureDate).subscribe(
-      ((resFlight: FlightModeledObject) => this.flightObject = resFlight)
+  getFlights(): Observable<FlightModeledObject> {
+    return this.flightService.getData(this.flightForm.value.origin, this.flightForm.value.destination, this.flightForm.value.departureDate)
+    .subscribe(
+      ((resFlight: FlightModeledObject) => this.flightObjects = resFlight)
     );
   }
 }

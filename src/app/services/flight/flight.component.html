@@ -1,18 +1,30 @@
 <h3>Get Flight Data</h3>
 
-<label>Origin:</label>
-<input type="text" [(ngModel)]="origin">
+<form [formGroup]="flightForm">
+  <label>
+    Origin:
+    <input type="text" formControlName="origin" required>
+  </label>
 
-<label>Destination:</label>
-<input type="text" [(ngModel)]="destination">
-
-<label>Departure:</label>
-<input type="text" [(ngModel)]="departureDate">
+  <label>Destination:
+    <input type="text" formControlName="destination" required>
+  </label>
+  
+  <label>
+    Departure:
+    <input type="text" formControlName="departureDate" required>
+  </label>  
+</form>
 
 <button (click)="getFlights()">Submit</button>
 
-<div *ngIf="flightObject">
+<div *ngIf="this.flightService.emptyObservable">
+  <p>No results came up for your search!</p>
+</div>
+
+<div *ngFor="let flightObject of flightObjects">
   {{ flightObject.price }}
   {{ flightObject.isDirect }}
   {{ flightObject.carrier }}
 </div>
+
