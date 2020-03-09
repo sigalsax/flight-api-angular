@@ -1,22 +1,32 @@
 <h3>Get Flight Data</h3>
 
-<form [formGroup]="flightForm">
-  <label>
-    Origin:
-    <input type="text" formControlName="origin" required>
-  </label>
+<form [formGroup]="flightForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label>Origin:</label>
+    <input type="text" formControlName="origin" [ngClass]="{ 'is-invalid': submitted && f.origin.errors }" />
+    <div *ngIf="submitted && f.origin.errors" class="invalid-feedback">
+      <div *ngIf="f.origin.errors.required">Origin is required</div>
+    </div>
+  </div>
 
-  <label>Destination:
-    <input type="text" formControlName="destination" required>
-  </label>
-  
-  <label>
-    Departure:
-    <input type="text" formControlName="departureDate" required>
-  </label>  
+  <div class="form-group">
+    <label>Destination:</label>
+    <input type="text" formControlName="destination" [ngClass]="{ 'is-invalid': submitted && f.destination.errors }" />
+    <div *ngIf="submitted && f.destination.errors" class="invalid-feedback">
+      <div *ngIf="f.destination.errors.required">Destination is required</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Departure:</label>
+      <input type="text" formControlName="departureDate" [ngClass]="{ 'is-invalid': submitted && f.departureDate.errors }" />
+      <div *ngIf="submitted && f.departureDate.errors" class="invalid-feedback">
+        <div *ngIf="f.departureDate.errors.required">Departure Data is required</div>
+      </div>
+    </div>
 </form>
 
-<button (click)="getFlights()">Submit</button>
+<button (click)="onSubmit()">Submit</button>
 
 <div *ngIf="this.flightService.emptyObservable">
   <p>No results came up for your search!</p>

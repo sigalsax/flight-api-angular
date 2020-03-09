@@ -26,7 +26,19 @@ The following defines the sequence diagram for this project.
 
 - [ ] Improve UX by adding CSS to Flight component
 
-- [ ] Add security measures on input and in code to prevent against malicious code execution
+- [ ] Add layer b/w presentation layer and BL to convert input to expected format. Example: Miami -> MIA or Tel Aviv -> TLV
+
+- [ ] Expand functionality support round-trip
+
+## Security Milestones
+
+- [x] Add validation on form fields to ensure nothing is left blank
+
+- [ ] Add validation to ensure there are no unwanted special characters (`<, >, &, @, ', ", ;`) in Origin and Destination.
+
+- [ ] Clean input from View on Date to prevent against malicious code execution on special characters
+
+  -  Add extra layer b/w presentation layer and BL to do this encode/filter before data manipulation
 
 ## Open bugs to fix:
 
@@ -36,10 +48,12 @@ The following defines the sequence diagram for this project.
 
 - [ ] Fix toggling bug when empty query/query with results, the messages disappear accordingly
 
+- [ ] Unsubscribe from Observable/s
+
 ## Areas to explore
 
-- [ ] Reactive forms for data validation
+- [x] Reactive forms for data validation
 
 - [ ] Look into Angular Elements for Date Picker
 
-- [ ] Angular elements for styling
+- [ ] Angular Material for styling

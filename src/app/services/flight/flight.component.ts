@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FlightService } from './flight.service';
 import { FlightModeledObject } from '../../models/flight.model';
-import { FormGroup, FormControl } from '@angular/forms';
+
 import { Observable } from 'rxjs';
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-flight',
@@ -14,13 +16,30 @@ import { Observable } from 'rxjs';
 export class FlightComponent {
   flightObjects: FlightModeledObject
 
-  flightForm = new FormGroup({
-    origin: new FormControl('MIA'),
-    destination: new FormControl('JFK'),
-    departureDate: new FormControl('2020-04-01'),
-  });
+  flightForm: FormGroup;
+  submitted = false;
 
-  constructor(private flightService: FlightService) {
+  constructor(private flightService: FlightService, private formBuilder: FormBuilder) {
+  }
+
+  ngOnInit(){
+    this.flightForm = this.formBuilder.group({
+      origin: ['', Validators.required],
+      destination: ['', Validators.required],
+      departureDate: [''],
+    });
+  }
+
+  get f() { return this.flightForm.controls; }
+
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.flightForm.invalid) {
+        return;
+    }
+
+    return this.getFlights()
   }
 
   getFlights(): Observable<FlightModeledObject> {
