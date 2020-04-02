@@ -26,7 +26,7 @@ export class FlightComponent {
     this.flightForm = this.formBuilder.group({
       origin: ['', Validators.required],
       destination: ['', Validators.required],
-      departureDate: [''],
+      departureDate: ['', Validators.required],
     });
   }
 
@@ -38,14 +38,13 @@ export class FlightComponent {
     if (this.flightForm.invalid) {
         return;
     }
-
     return this.getFlights()
   }
 
   getFlights(): Observable<FlightModeledObject> {
     return this.flightService.getData(this.flightForm.value.origin, this.flightForm.value.destination, this.flightForm.value.departureDate)
     .subscribe(
-      ((resFlight: FlightModeledObject) => this.flightObjects = resFlight)
+      ((resFlight: FlightModeledObject) => this.flightObjects= this.resFlight)
     );
   }
 }

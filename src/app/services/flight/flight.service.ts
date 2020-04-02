@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Flight, FlightModeledObject } from '../../models/flight.model';
 import { map, tap} from "rxjs/operators";
+import * as moment from 'moment';
 
 @Injectable()
 export class FlightService {
@@ -68,14 +69,16 @@ export class FlightService {
   }
 
   getData(origin, destination, departure) {
+    var formatedDate = moment(departure).format("YYYY-MM-DD")
+
     const httpOptions = {
       headers: new HttpHeaders({
         "x-rapidapi-host": "",
         "x-rapidapi-key": ""
       })
     };
-    console.log(this.configureURL(origin, destination, departure))
-    return this.http.get<Flight>(this.configureURL(origin, destination, departure), httpOptions)
+    console.log(this.configureURL(origin, destination, formatedDate))
+    return this.http.get<Flight>(this.configureURL(origin, destination, formatedDate), httpOptions)
       .pipe(
         tap(res => console.log(res)),
         map((res: Flight) => this.filterFlight(res)) 

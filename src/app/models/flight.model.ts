@@ -36,7 +36,7 @@ export interface Place {
   CountryName: string;
 }
 
-export class Carrier {
+export interface Carrier {
   CarrierId: number;
   Name: string;
 }
