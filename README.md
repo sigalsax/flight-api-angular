@@ -40,7 +40,7 @@ UI Mock: https://www.figma.com/file/4fZOxVvGOWUz4bSCtY8YAX/FlightMock?node-id=0%
 
 - [X] Clean input from View on Date to prevent against malicious code execution on special characters.
  
-  *NOTE:* protected by Angular Elements DatePicker. The DatePicker requires input in a specific date format.
+  *NOTE:* protected by Angular Material DatePicker. The DatePicker requires input in a specific date format.
 
   -  Add extra layer b/w presentation layer and BL to do this encode/filter before data manipulation
 

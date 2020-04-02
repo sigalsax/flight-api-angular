@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   selector: 'app-flight',
   templateUrl: './flight.component.html',
   providers: [ FlightService ],
-  styles: ['']
+  styleUrls: ['./flight.component.css']
 })
 
 export class FlightComponent {

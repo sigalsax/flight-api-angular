@@ -1,0 +1,21 @@
+.form {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+mat-form-field.mat-form-field {
+    background-color: white;
+}
+
+mat-form-field {
+    margin: 22px;
+    padding: 22px;
+    border: 1px solid #e6e6e6;
+}
+
+.mat-button , .mat-flat-button, .mat-icon-button, .mat-stroked-button {
+    width: 50%;
+    background-color: white;
+    border: 1px solid #e6e6e6;
+
+}

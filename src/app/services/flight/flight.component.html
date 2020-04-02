@@ -1,28 +1,29 @@
-<form [formGroup]="flightForm" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="legacy">
-    <mat-label>From?</mat-label>
-    <input matInput placeholder="Ex: MIA" required formControlName="origin">
-    <mat-hint>Airport Code (MIA)</mat-hint>
-  </mat-form-field>
-  
-  <mat-form-field appearance="legacy">
-    <mat-label>To?</mat-label>
-    <input matInput placeholder="Ex: JFK" required formControlName="destination">
-    <mat-hint>Airport Code (JFK)</mat-hint>
-  </mat-form-field>
-  
-  <mat-form-field>
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker" required formControlName="departureDate">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-</form>
+<div class="form">
+  <form [formGroup]="flightForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>From?</mat-label>
+        <input matInput placeholder="Ex: MIA" required formControlName="origin">
+        <mat-hint>Airport Code (MIA)</mat-hint>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-label>To?</mat-label>
+        <input matInput placeholder="Ex: JFK" required formControlName="destination">
+        <mat-hint>Airport Code (JFK)</mat-hint>
+      </mat-form-field>
 
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" required formControlName="departureDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </form>
 
-<button mat-button (click)="onSubmit()">
-  <mat-icon>search</mat-icon>
-</button>
+    <button mat-button (click)="onSubmit()">
+      <mat-icon>search</mat-icon>
+    </button>
+</div>
 
 <div *ngIf="this.flightService.emptyObservable">
   <p>No results came up for your search!</p>
