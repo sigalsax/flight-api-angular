@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Flight, FlightModeledObject } from '../../models/flight.model';
 import { map, tap} from "rxjs/operators";
 import * as moment from 'moment';
+import {  connection } from "../../../rapidAPIConnection";
 
 @Injectable()
 export class FlightService {
@@ -73,8 +74,8 @@ export class FlightService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        "x-rapidapi-host": "",
-        "x-rapidapi-key": ""
+        "x-rapidapi-host": connection["host"],
+        "x-rapidapi-key": connection["key"]
       })
     };
     console.log(this.configureURL(origin, destination, formatedDate))
