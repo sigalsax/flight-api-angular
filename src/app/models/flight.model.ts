@@ -2,6 +2,7 @@ export interface FlightModeledObject {
   price: string;
   isDirect: string;
   carrier: string;
+  date: string;
 }
 
 export interface Flight {

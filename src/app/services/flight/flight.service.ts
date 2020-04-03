@@ -8,13 +8,7 @@ import {  connection } from "../../../rapidAPIConnection";
 @Injectable()
 export class FlightService {
   emptyObservable: boolean
-  flightObjects: {price: string, isDirect: string, carrier: string }[] = [
-    { 
-      "price": "",
-      "isDirect": "",
-      "carrier": ""
-    }
-  ]
+  flightObjects:any = []
 
   constructor(private http: HttpClient) {
     this.emptyObservable = false
@@ -38,7 +32,7 @@ export class FlightService {
 
   // The REST response returns Quotes with only CarrierIds and so this function
   // converts the CarrierIds to human readable flight companies
-  convertIdToFlightCompany(res): void {
+  convertIdToFlightCompany(res) {
     let quotes = res.Quotes;
     let carriers = res.Carriers
 
@@ -49,18 +43,24 @@ export class FlightService {
             this.flightObjects.push({
               price: this.setFlightPrice(quotes[quote]),
               isDirect: this.setDirect(quotes[quote]),
-              carrier: carriers[carrier].Name
+              carrier: carriers[carrier].Name,
+              date: this.setDate(quotes[quote])
             })
           }
         }
       }
     }
+    return this.flightObjects
   }
 
   setFlightPrice(quotes) {
     return quotes.MinPrice
   }
 
+  setDate(quotes) {
+    return moment(quotes.OutboundLeg.DepartureDate).format('dddd, MMMM Do YYYY')
+  }
+  
   setDirect(quotes) {
     var direct = "Not Direct"
     if (quotes.Direct == true) {
@@ -81,8 +81,8 @@ export class FlightService {
     console.log(this.configureURL(origin, destination, formatedDate))
     return this.http.get<Flight>(this.configureURL(origin, destination, formatedDate), httpOptions)
       .pipe(
-        tap(res => console.log(res)),
-        map((res: Flight) => this.filterFlight(res)) 
+        map((res: Flight) => this.filterFlight(res)),
+        tap(res => console.log(res))
       )
   }
 }

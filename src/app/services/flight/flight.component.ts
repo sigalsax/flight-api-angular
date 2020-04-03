@@ -14,8 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 
 export class FlightComponent {
-  flightObjects: FlightModeledObject
-
+  flightObjects: FlightModeledObject[] = [];
   flightForm: FormGroup;
   submitted = false;
 
@@ -30,8 +29,6 @@ export class FlightComponent {
     });
   }
 
-  get f() { return this.flightForm.controls; }
-
   onSubmit() {
     this.submitted = true;
 
@@ -44,7 +41,6 @@ export class FlightComponent {
   getFlights(): Observable<FlightModeledObject> {
     return this.flightService.getData(this.flightForm.value.origin, this.flightForm.value.destination, this.flightForm.value.departureDate)
     .subscribe(
-      ((resFlight: FlightModeledObject) => this.flightObjects= this.resFlight)
-    );
+      (flightObjects => this.flightObjects = flightObjects));
   }
 }
