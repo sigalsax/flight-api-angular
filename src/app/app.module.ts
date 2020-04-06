@@ -1,16 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-import { FlightComponent } from './services/flight/flight.component';
-
+import { NgRedux } from '@angular-redux/store';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatDatepickerModule } from '@angular/material';
+import { MatTableModule, MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatDatepickerModule } from '@angular/material';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FlightComponent } from './components/flight.component';
+import { FlightModule } from './components/flight.module';
+import { FlightReducer, InitialState, initialState } from './components/flight.reducer';
+
 
 @NgModule({
   declarations: [
@@ -30,8 +32,14 @@ import { MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, Mat
     MatNativeDateModule,
     MatIconModule,
     MatButtonModule,
+    MatTableModule,
+    FlightModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(ngRedux: NgRedux<InitialState>) {
+    ngRedux.configureStore(FlightReducer, initialState);
+  }
+}

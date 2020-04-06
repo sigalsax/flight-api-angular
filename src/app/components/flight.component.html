@@ -29,10 +29,27 @@
   <p>No results came up for your search!</p>
 </div>
 
-<div *ngFor="let flightObject of flightObjects">
-  {{ flightObject.price }}
-  {{ flightObject.isDirect }}
-  {{ flightObject.carrier }}
-  {{ flightObject.date }}
-</div>
+<table #dataTable mat-table [dataSource]="flightObjects" class="mat-elevation-z8" [hidden]="!submitted">
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef> Date </th>
+    <td mat-cell *matCellDef="let flightObject"> {{ flightObject.date }} </td>
+  </ng-container>
 
+  <ng-container matColumnDef="carrier">
+    <th mat-header-cell *matHeaderCellDef> Airliner </th>
+    <td mat-cell *matCellDef="let flightObject"> {{ flightObject.carrier }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Price </th>
+    <td mat-cell *matCellDef="let flightObject"> {{ flightObject.price }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="direct">
+    <th mat-header-cell *matHeaderCellDef> Direct </th>
+    <td mat-cell *matCellDef="let flightObject"> {{ flightObject.isDirect }} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+</table>
