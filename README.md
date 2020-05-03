@@ -24,21 +24,29 @@ UI Mock: https://www.figma.com/file/4fZOxVvGOWUz4bSCtY8YAX/FlightMock?node-id=0%
 
 - [x] Front-end design created in Figma for SPA layout
 
-- [ ] Improve UX by adding CSS to Flight component
+- [x] Improve UX by adding CSS to Flight component
+
+- [x] Configure app to display results
 
 - [ ] Add ability to convert input to expected format. Example: MIA -> Miami or TLV -> Tel Aviv
 
 - [ ] Expand functionality support round-trip
 
-- [ ] Configure app to display results
+- [ ] Skyscanner client does not support links back to site for customer purchasing so I will need to manually add this link to improve UX. Bare URL resembles the following: 
+
+  ```
+  https://www.skyscanner.co.il/transport/flights/mia/tlv/200508/200528/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home
+  ```
 
 ## Security Milestones
 
 - [x] Add validation on form fields to ensure nothing is left blank
 
 - [ ] Add validation to ensure there are no unwanted special characters (`<, >, &, @, ', ", ;`) in Origin and Destination.
+  
+  *NOTE:* tested. API client URL encodes query but should clean this input on submit
 
-- [X] Clean input from View on Date to prevent against malicious code execution on special characters.
+- [x] Clean input from View on Date to prevent against malicious code execution on special characters.
  
   *NOTE:* protected by Angular Material DatePicker. The DatePicker requires input in a specific date format.
 
@@ -50,9 +58,9 @@ UI Mock: https://www.figma.com/file/4fZOxVvGOWUz4bSCtY8YAX/FlightMock?node-id=0%
 
 - [x] Check if Quotes array is empty and if so, render message to View
 
-- [ ] Fix toggling bug when empty query/query with results, the messages disappear accordingly
+- [x] Fix toggling bug when empty query/query with results, the messages disappear accordingly
 
-- [ ] Unsubscribe from Observable/s
+- [x] Unsubscribe from Observable/s
 
 ## Areas to explore
 

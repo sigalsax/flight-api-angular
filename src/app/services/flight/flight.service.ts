@@ -1,29 +1,45 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Flight } from '../../models/flight.model';
-import { map, tap} from "rxjs/operators";
+import { map, tap, catchError} from "rxjs/operators";
+import { of } from 'rxjs';
+
 import * as moment from 'moment';
 import {  connection } from "../../../rapidAPIConnection";
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class FlightService {
   emptyObservable: boolean
   flightObjects: any[]= [];
+  isError: boolean = false;
+  date: String = ""
 
   constructor(private http: HttpClient) {
     this.emptyObservable = false
   }
 
   filterFlight(res) {
-    let quote = res.Quotes;
-
-    if (quote.length !== 0) {
-      this.convertIdToFlightCompany(res)
+    if (this.isError == true){
+      this.flightObjects.push({
+          price: "--",
+          isDirect: "--",
+          carrier: "--",
+          date: "--"
+      })
+      this.isError = false;
+      return this.flightObjects;
     } else {
-      this.emptyObservable = true
-    }
+     let quote = res.Quotes;
+      if (quote.length !== 0) {
+        this.convertIdToFlightCompany(res)
+      } else {
+        this.emptyObservable = true
+      }
+    
     // Used to render the data sorted from newest to oldest
     return this.reverseItemOrder(this.flightObjects)
+    }
   }
 
   configureURL(origin, destination, departure) {
@@ -42,21 +58,20 @@ export class FlightService {
   convertIdToFlightCompany(res) {
     let quotes = res.Quotes;
     let carriers = res.Carriers
-
-    for (var quote in quotes) {
-      for (var quoteCarrierIds in quotes[quote].OutboundLeg.CarrierIds) {
-        for (var carrier in carriers) {
-          if (quotes[quote].OutboundLeg.CarrierIds[quoteCarrierIds] == carriers[carrier].CarrierId) {
-            this.flightObjects.push({
-              price: "$" + this.setFlightPrice(quotes[quote]),
-              isDirect: this.setDirect(quotes[quote]),
-              carrier: carriers[carrier].Name,
-              date: this.setDate(quotes[quote])
-            })
+      for (var quote in quotes) {
+        for (var quoteCarrierIds in quotes[quote].OutboundLeg.CarrierIds) {
+          for (var carrier in carriers) {
+            if (quotes[quote].OutboundLeg.CarrierIds[quoteCarrierIds] == carriers[carrier].CarrierId) {
+              this.flightObjects.push({
+                price: "$" + this.setFlightPrice(quotes[quote]),
+                isDirect: this.setDirect(quotes[quote]),
+                carrier: carriers[carrier].Name,
+                date: this.setDate(quotes[quote])
+              })
+            }
           }
         }
       }
-    }
     return this.flightObjects
   }
 
@@ -87,9 +102,14 @@ export class FlightService {
     };
     console.log(this.configureURL(origin, destination, formatedDate))
     return this.http.get<Flight>(this.configureURL(origin, destination, formatedDate), httpOptions)
-      .pipe(
-        map((res: Flight) => this.filterFlight(res)),
-        tap(res => console.log(res))
-      )
-    }
+    .pipe(
+      catchError(err => {
+        this.isError = true;
+        return of([]);
+      }),
+      tap(res => console.log(res)),
+      map((res: Flight) => this.filterFlight(res)),
+      tap(res => console.log(res))
+    )
+  }
 }
