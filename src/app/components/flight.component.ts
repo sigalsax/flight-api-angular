@@ -26,7 +26,7 @@ export class FlightComponent {
 
   @ViewChild(MatTable,{static:true}) table
   
-  columnsToDisplay = ['date', 'carrier', 'price', 'direct']
+  columnsToDisplay = ['date', 'carrier', 'price', 'direct', 'url']
 
   constructor(
     private ngRedux: NgRedux<InitialState>,
@@ -52,7 +52,6 @@ export class FlightComponent {
   }
 
   getFlights() {
-    this.submitted=true;
     return this.flightService.getData(this.flightForm.value.origin, this.flightForm.value.destination, this.flightForm.value.departureDate)
     .subscribe(
       flightObjects => {
@@ -60,6 +59,7 @@ export class FlightComponent {
         this.refreshTable()
         this.flightObjects = flightObjects
         this.ngRedux.dispatch(AddFlightItem(this.flightObjects))
+        this.submitted=true;
         console.log("State: " + (JSON.stringify(this.ngRedux.getState())))
       },
       error => {

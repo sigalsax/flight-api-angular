@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Flight } from '../../models/flight.model';
 import { map, tap, catchError} from "rxjs/operators";
@@ -6,18 +6,19 @@ import { of } from 'rxjs';
 
 import * as moment from 'moment';
 import {  connection } from "../../../rapidAPIConnection";
-import { throwError } from 'rxjs';
 
 @Injectable()
 export class FlightService {
-  emptyObservable: boolean
   flightObjects: any[]= [];
   isError: boolean = false;
-  date: String = ""
+  
+  origin: String = ""
+  departure: String = ""
+  destination: String = ""
 
-  constructor(private http: HttpClient) {
-    this.emptyObservable = false
-  }
+  formatedDate: String = ""
+  
+  constructor(private http: HttpClient) {}
 
   filterFlight(res) {
     if (this.isError == true){
@@ -25,25 +26,24 @@ export class FlightService {
           price: "--",
           isDirect: "--",
           carrier: "--",
-          date: "--"
+          date: this.formatedDate,
+          buyURL: "--"
       })
       this.isError = false;
-      return this.flightObjects;
     } else {
-     let quote = res.Quotes;
-      if (quote.length !== 0) {
+        let quote = res.Quotes;
         this.convertIdToFlightCompany(res)
-      } else {
-        this.emptyObservable = true
-      }
-    
-    // Used to render the data sorted from newest to oldest
-    return this.reverseItemOrder(this.flightObjects)
     }
+    // used to render the data sorted from newest to oldest
+    return this.reverseItemOrder(this.flightObjects)
   }
 
-  configureURL(origin, destination, departure) {
+  buildURL(origin, destination, departure) {
     return `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/${origin}/${destination}/${departure}`
+  }
+
+  buildBuyURL(departure) {
+    return `https://www.skyscanner.co.il/transport/flights/${this.origin}/${this.destination}/${moment(departure).format('YYMMDD')}/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home`
   }
 
   reverseItemOrder(flightObjects) {
@@ -66,7 +66,8 @@ export class FlightService {
                 price: "$" + this.setFlightPrice(quotes[quote]),
                 isDirect: this.setDirect(quotes[quote]),
                 carrier: carriers[carrier].Name,
-                date: this.setDate(quotes[quote])
+                date: this.getDate(quotes[quote].OutboundLeg.DepartureDate),
+                buyURL: this.buildBuyURL(this.departure)
               })
             }
           }
@@ -79,10 +80,6 @@ export class FlightService {
     return quotes.MinPrice
   }
 
-  setDate(quotes) {
-    return moment(quotes.OutboundLeg.DepartureDate).format('dddd, MMMM Do YYYY')
-  }
-
   setDirect(quotes) {
     var direct = "Not Direct"
     if (quotes.Direct == true) {
@@ -91,18 +88,27 @@ export class FlightService {
     return direct
   }
 
-  getData(origin, destination, departure) {
-    var formatedDate = moment(departure).format("YYYY-MM-DD")
+  getDate(departure) {
+    return moment(departure).format('dddd, MMMM Do YYYY')
+  }
 
+  getData(origin, destination, departure) {
+    this.origin = origin
+    this.destination = destination
+    this.departure = departure;
+    
+    // console.log(this.buildBuyURL(this.departure))
+    this.formatedDate = this.getDate(departure);
     const httpOptions = {
       headers: new HttpHeaders({
         "x-rapidapi-host": connection["host"],
         "x-rapidapi-key": connection["key"]
       })
     };
-    console.log(this.configureURL(origin, destination, formatedDate))
-    return this.http.get<Flight>(this.configureURL(origin, destination, formatedDate), httpOptions)
+    
+    return this.http.get<Flight>(this.buildURL(origin, destination, moment(departure).format("YYYY-MM-DD")), httpOptions)
     .pipe(
+      // replacement Observable on error
       catchError(err => {
         this.isError = true;
         return of([]);
