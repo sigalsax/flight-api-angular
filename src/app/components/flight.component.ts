@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { FlightService } from '../services/flight/flight.service';
 import { FlightModeledObject } from '../models/flight.model';
 
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject, Subscription } from 'rxjs';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgRedux } from '@angular-redux/store';
@@ -20,6 +20,8 @@ import { MatTable } from '@angular/material';
 
 export class FlightComponent {
   flightObjects: FlightModeledObject[] = [];
+  subscription: Subscription;
+
   flightForm: FormGroup;
   submitted = false;
   emptyQuery = false;
@@ -52,7 +54,7 @@ export class FlightComponent {
   }
 
   getFlights() {
-    return this.flightService.getData(this.flightForm.value.origin, this.flightForm.value.destination, this.flightForm.value.departureDate)
+    this.subscription = this.flightService.getData(this.flightForm.value.origin, this.flightForm.value.destination, this.flightForm.value.departureDate)
     .subscribe(
       flightObjects => {
         this.emptyQuery = false
@@ -61,14 +63,12 @@ export class FlightComponent {
         this.ngRedux.dispatch(AddFlightItem(this.flightObjects))
         this.submitted=true;
         console.log("State: " + (JSON.stringify(this.ngRedux.getState())))
-      },
-      error => {
-        this.emptyQuery = true
       }
     );
+    return this.subscription;
   }
 
   ngOnDestroy(){
-    this.getFlights().unsubscribe();
+    this.subscription.unsubscribe();
   }
 }
