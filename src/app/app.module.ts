@@ -5,7 +5,7 @@ import { NgRedux } from '@angular-redux/store';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule, MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatDatepickerModule } from '@angular/material';
+import { MatCardModule, MatTableModule, MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatDatepickerModule, MatCheckboxModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +29,7 @@ import { FlightReducer, InitialState, initialState } from './components/flight.r
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
+    MatCheckboxModule,
     MatNativeDateModule,
     MatIconModule,
     MatButtonModule,

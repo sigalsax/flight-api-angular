@@ -2,6 +2,23 @@
 
 This project evokes the SkyScanner Flight API (with the help of RapidAPI wrapper to check the lowest price available for travel between two locations for a specific date.
 
+## Run Project
+
+To run the server, run `npm start` and navigate to `localhost:4200`.
+
+To successfully launch this application, you will need to create a [RapidAPI account](https://rapidapi.com/skyscanner/api/skyscanner-flight-search) in order to get your Rapid API key, `X-RapidAPI-Key`. 
+
+Once you have done so, create a file called `rapidAPIConnection.ts` and fill it with the Host and Key values returned to you at setup. The file should resemble the following:
+
+```
+// rapidAPIConnection.ts
+
+export const connection = {
+    "host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+    "key": ""
+}
+``` 
+
 ## Design
 
 The following defines the sequence diagram for this project.   
@@ -32,11 +49,13 @@ UI Mock: https://www.figma.com/file/4fZOxVvGOWUz4bSCtY8YAX/FlightMock?node-id=0%
 
 - [ ] Expand functionality support round-trip
 
-- [ ] Skyscanner client does not support links back to site for customer purchasing so I will need to manually add this link to improve UX. Bare URL resembles the following: 
+- [x] Skyscanner client does not support links back to site for customer purchasing so I will need to manually add this link to improve UX. Bare URL resembles the following: 
 
   ```
   https://www.skyscanner.co.il/transport/flights/mia/tlv/200508/200528/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home
   ```
+
+- [ ] ENHANCEMENT: At subscribe option to send flights to email
 
 ## Security Milestones
 

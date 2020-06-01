@@ -17,9 +17,17 @@ export interface Quote {
   MinPrice: number;
   Direct: boolean;
   OutboundLeg: Array<OutboundLeg>;
+  InboundLeg: Array<InboundLeg>;
 }
 
 export interface OutboundLeg {
+  CarrierIds: Array<number>;
+  OriginId: number;
+  DestinationId: number;
+  DepartureDate: string;
+}
+
+export interface InboundLeg {
   CarrierIds: Array<number>;
   OriginId: number;
   DestinationId: number;

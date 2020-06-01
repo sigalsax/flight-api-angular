@@ -2,14 +2,11 @@ import { Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { FlightService } from '../services/flight/flight.service';
 import { FlightModeledObject } from '../models/flight.model';
 
-import { Observable, BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgRedux } from '@angular-redux/store';
-import { InitialState } from './flight.reducer';
-import { AddFlightItem } from './flight.actions';
 
-import { MatTable } from '@angular/material';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-flight',
@@ -19,56 +16,44 @@ import { MatTable } from '@angular/material';
 })
 
 export class FlightComponent {
-  flightObjects: FlightModeledObject[] = [];
-  subscription: Subscription;
+  public flightObjects$: Observable<FlightModeledObject[]>;
 
-  flightForm: FormGroup;
-  submitted = false;
-  emptyQuery = false;
-
-  @ViewChild(MatTable,{static:true}) table
+  public flightForm: FormGroup;
   
+  checked: boolean = false;
+  tempLocationOrigin: string = ""
+  tempLocationDestination: string = ""
   columnsToDisplay = ['date', 'carrier', 'price', 'direct', 'url']
 
   constructor(
-    private ngRedux: NgRedux<InitialState>,
     private flightService: FlightService, 
     private formBuilder: FormBuilder,
     ){}
 
   ngOnInit(){
     this.flightForm = this.formBuilder.group({
-      origin: ['', Validators.required],
-      destination: ['', Validators.required],
-      departureDate: ['', Validators.required],
+      origin: ['MIA', Validators.required],
+      destination: ['TLV', Validators.required],
+      departureDate: [moment().format("YYYY-MM-DD"), Validators.required],
+      roundTrip: [''],
+      returnDate: ['']
     });
+    this.flightObjects$ = this.flightService.getFlightsDataObservable()
   }
 
-  onSubmit() { 
-    return this.getFlights()
+  checkedButton(event) {
+    this.checked=!this.checked
   }
 
-  refreshTable() {
-    table: MatTable;
-    this.table.renderRows();
+  swapFlight(){
+    this.tempLocationOrigin=this.flightForm.value.origin
+    this.tempLocationDestination=this.flightForm.value.destination
+    
+    this.flightForm.patchValue({origin: this.tempLocationDestination, destination: this.tempLocationOrigin})
   }
 
-  getFlights() {
-    this.subscription = this.flightService.getData(this.flightForm.value.origin, this.flightForm.value.destination, this.flightForm.value.departureDate)
-    .subscribe(
-      flightObjects => {
-        this.emptyQuery = false
-        this.refreshTable()
-        this.flightObjects = flightObjects
-        this.ngRedux.dispatch(AddFlightItem(this.flightObjects))
-        this.submitted=true;
-        console.log("State: " + (JSON.stringify(this.ngRedux.getState())))
-      }
-    );
-    return this.subscription;
-  }
-
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
+  onSubmit(): void {
+    console.log(this.flightForm.value.roundTrip)
+    this.flightService.getData(this.flightForm.value.origin, this.flightForm.value.destination, this.flightForm.value.departureDate, this.flightForm.value.returnDate)
   }
 }

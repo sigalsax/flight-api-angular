@@ -26,3 +26,35 @@ table {
 .submitted {
     visibility: show;
 }
+
+.mat-form-field-flex .mat-form-field-infix {
+    border-top: 0;
+    padding-bottom: 20px;
+}
+
+.flight {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-bottom: 10px;
+}
+
+.flight .material-icons {
+    font-size: 20px;
+}
+.flight-location {
+    padding-left: 10px;
+    font-size: 14px;
+}
+
+.swap-button {
+    background: transparent;
+    border: none;
+}
+
+button, .swap-button:focus {
+    background: transparent;
+    border: none;
+    outline: none;
+    border-color: none;
+}
